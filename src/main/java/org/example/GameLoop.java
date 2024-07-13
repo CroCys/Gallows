@@ -1,9 +1,10 @@
 package org.example;
 
-import java.io.Console;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GameLoop {
 	// Лист с отгаданными подряд словами
@@ -11,40 +12,44 @@ public class GameLoop {
 
 	// Проверка на правильность ввода и начало/конец игры
 	public void startGame() {
-		Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
 		ConsoleOutput consoleOutput = new ConsoleOutput();
 		GodMode godMode = new GodMode();
 
 		boolean validInput = false;
 		System.out.println("Начать новую игру? (да / нет)");
-		String startGame = scanner.next().toLowerCase();
 
 		while (!validInput) {
-			if (startGame.equals("да")) {
-				consoleOutput.output(this);
-				validInput = true;
-			} else if (startGame.equals("нет")) {
-				System.out.println("Игра окончена");
-				if (solvedWords.size() == 1) {
-					System.out.println("Вы разгадали " + solvedWords.size() + " слово");
-					System.out.println(solvedWords.toString());
-				} else if ((solvedWords.size() > 1) && (solvedWords.size() < 5)) {
-					System.out.println("Вы разгадали " + solvedWords.size() + " слова");
-					System.out.println(solvedWords.toString());
+			try {
+				String startGame = reader.readLine().trim().toLowerCase();
+				if (startGame.equals("да")) {
+					consoleOutput.output(this);
+					validInput = true;
+				} else if (startGame.equals("нет")) {
+					System.out.println("Игра окончена");
+					if (solvedWords.size() == 1) {
+						System.out.println("Вы разгадали " + solvedWords.size() + " слово");
+						System.out.println(solvedWords.toString());
+					} else if ((solvedWords.size() > 1) && (solvedWords.size() < 5)) {
+						System.out.println("Вы разгадали " + solvedWords.size() + " слова");
+						System.out.println(solvedWords.toString());
+					} else if (solvedWords.isEmpty()) {
+						System.out.println("Вы разгадали " + 0 + " слов");
+					} else {
+						System.out.println("Вы разгадали " + solvedWords.size() + " слов");
+						System.out.println(solvedWords.toString());
+					}
+					validInput = true;
+					System.exit(0);
+				} else if (startGame.equals("godmode")) {
+					godMode.output(this);
+					validInput = true;
 				} else {
-					System.out.println("Вы разгадали " + solvedWords.size() + " слов");
-					System.out.println(solvedWords.toString());
+					System.out.println("Введите да или нет");
 				}
-				validInput = true;
-				System.exit(0);
-			} else if (startGame.equals("godmode")) {
-				godMode.output(this);
-				validInput = true;
-			} else {
-				System.out.println("Введите да или нет");
-				startGame = scanner.nextLine().toLowerCase();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
 			}
 		}
-		scanner.close();
 	}
 }
