@@ -10,8 +10,8 @@ public class WordRenderer {
 
 	// Разбиваем слово по буквам
 	public void wordBySymbol() {
-		PickRandomWord pickRandomWord = new PickRandomWord();
-		String word = pickRandomWord.randomWord();
+		PickDifficult pickDifficult = new PickDifficult();
+		String word = pickDifficult.difficult();
 		for (int i = 0; i < word.length(); i++) {
 			completeWordBySymbol.add(word.charAt(i));
 		}
