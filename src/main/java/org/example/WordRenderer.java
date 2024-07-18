@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class WordRenderer {
 	// Лист в котором хранится случайное слово разбитое по буквам
@@ -21,6 +22,19 @@ public class WordRenderer {
 	public void hiddenWord() {
 		for (int i = 0; i < completeWordBySymbol.size(); i++) {
 			answerWord.add('_');
+		}
+	}
+
+	public void hiddenWordWithTips() {
+		for (int i = 0; i < completeWordBySymbol.size(); i++) {
+			answerWord.add('_');
+		}
+
+		Random random = new Random();
+		for (int i = 0; i < 2; i++) {
+			int index = random.nextInt(completeWordBySymbol.size());
+			char answerSymbol = completeWordBySymbol.get(index);
+			answerWord.set(index, answerSymbol);
 		}
 	}
 }

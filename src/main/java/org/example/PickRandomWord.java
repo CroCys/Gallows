@@ -7,11 +7,13 @@ public class PickRandomWord {
 	public String randomWord() {
 		Random random = new Random();
 		ReadFile readFile = new ReadFile();
-		readFile.readWords();
+		if (readFile.words.isEmpty()) {
+			readFile.readWords();
+		}
 
 		int wordCount = readFile.words.size();
-		int randomIndex = random.nextInt(wordCount + 1);
+		int randomWord = random.nextInt(wordCount + 1);
 
-		return readFile.words.get(randomIndex);
+		return readFile.words.get(randomWord);
 	}
 }

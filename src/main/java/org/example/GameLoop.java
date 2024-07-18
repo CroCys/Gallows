@@ -22,30 +22,33 @@ public class GameLoop {
 		while (!validInput) {
 			try {
 				String startGame = reader.readLine().trim().toLowerCase();
-				if (startGame.equals("да")) {
-					consoleOutput.output(this);
-					validInput = true;
-				} else if (startGame.equals("нет")) {
-					System.out.println("Игра окончена");
-					if (solvedWords.size() == 1) {
-						System.out.println("Вы разгадали " + solvedWords.size() + " слово");
-						System.out.println(solvedWords.toString());
-					} else if ((solvedWords.size() > 1) && (solvedWords.size() < 5)) {
-						System.out.println("Вы разгадали " + solvedWords.size() + " слова");
-						System.out.println(solvedWords.toString());
-					} else if (solvedWords.isEmpty()) {
-						System.out.println("Вы разгадали " + 0 + " слов");
-					} else {
-						System.out.println("Вы разгадали " + solvedWords.size() + " слов");
-						System.out.println(solvedWords.toString());
+				switch (startGame) {
+					case "да" -> {
+						consoleOutput.output(this);
+						validInput = true;
 					}
-					validInput = true;
-					System.exit(0);
-				} else if (startGame.equals("godmode")) {
-					godMode.output(this);
-					validInput = true;
-				} else {
-					System.out.println("Введите да или нет");
+					case "нет" -> {
+						System.out.println("Игра окончена");
+						if (solvedWords.size() == 1) {
+							System.out.println("Вы разгадали " + solvedWords.size() + " слово");
+							System.out.println(solvedWords.toString());
+						} else if ((solvedWords.size() > 1) && (solvedWords.size() < 5)) {
+							System.out.println("Вы разгадали " + solvedWords.size() + " слова");
+							System.out.println(solvedWords.toString());
+						} else if (solvedWords.isEmpty()) {
+							System.out.println("Вы разгадали " + 0 + " слов");
+						} else {
+							System.out.println("Вы разгадали " + solvedWords.size() + " слов");
+							System.out.println(solvedWords.toString());
+						}
+						validInput = true;
+						System.exit(0);
+					}
+					case "god mode" -> {
+						godMode.output(this);
+						validInput = true;
+					}
+					default -> System.out.println("Введите да или нет");
 				}
 			} catch (IOException e) {
 				throw new RuntimeException(e);

@@ -18,12 +18,33 @@ public class GodMode {
 		// Лист с ошибочными буквами
 		ArrayList<Character> wrongSymbols = new ArrayList<>();
 
-		wordRenderer.wordBySymbol();
-		System.out.println(wordRenderer.completeWordBySymbol); // Вывод ответа
-		wordRenderer.hiddenWord();
+		boolean validInput = false;
+		String tips;
+
+		// Спрашиваем включить ли отображение двух случайных букв слова
+		System.out.println("Включить подсказки? (да / нет)");
+		while (!validInput) {
+			try {
+				tips = reader.readLine().trim().toLowerCase();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			if (tips.equals("да")) {
+				wordRenderer.wordBySymbol();
+				wordRenderer.hiddenWordWithTips();
+				validInput = true;
+			} else if (tips.equals("нет")) {
+				wordRenderer.wordBySymbol();
+				wordRenderer.hiddenWord();
+				validInput = true;
+			} else {
+				System.out.println("Включить подсказки? (да / нет)");
+			}
+		}
 
 		try {
 			do {
+				System.out.println(wordRenderer.completeWordBySymbol); // Вывод ответа
 				drawGallows.draw(numberOfMistakes); // Выводим виселицу
 				System.out.println(wordRenderer.answerWord); // Вывод прогресса разгадывания слова пользователем
 
