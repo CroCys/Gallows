@@ -44,7 +44,8 @@ public class ConsoleOutput {
 
 		try {
 			do {
-//				System.out.println(wordRenderer.completeWordBySymbol); // Вывод ответа
+				System.out.print("Таких букв нет: ");
+				System.out.println(wrongSymbols); // Выводим неправильные буквы
 				drawGallows.draw(numberOfMistakes); // Выводим виселицу
 				System.out.println(wordRenderer.answerWord); // Вывод прогресса разгадывания слова пользователем
 
@@ -63,8 +64,6 @@ public class ConsoleOutput {
 					// Проверка на неправильную букву
 					if (!wordRenderer.completeWordBySymbol.contains(inputSymbol)) {
 						wrongSymbols.add(inputSymbol);
-						System.out.print("Таких букв нет: ");
-						System.out.println(wrongSymbols);
 
 						numberOfMistakes++; // В случае ошибки увеличиваем счетчик ошибок
 
@@ -80,6 +79,8 @@ public class ConsoleOutput {
                 /* Сообщаем о конце игры если закончились жизни, выводим количество разгаданных слов,
                 количество слов, предлагаем сыграть заново */
 					if (numberOfMistakes == 6) {
+						System.out.print("Таких букв нет: ");
+						System.out.println(wrongSymbols);
 						drawGallows.draw(numberOfMistakes);
 						System.out.println(wordRenderer.answerWord);
 						System.out.println("Вы повешенны! (Игра окончена)");
@@ -89,17 +90,21 @@ public class ConsoleOutput {
 						if (gameLoop.solvedWords.size() == 1) {
 							System.out.println("Разгадано " + gameLoop.solvedWords.size() + " слово");
 							System.out.println(gameLoop.solvedWords.toString());
+							gameLoop.solvedWords.clear();
 							gameLoop.startGame();
 						} else if ((gameLoop.solvedWords.size() > 1) && (gameLoop.solvedWords.size() < 5)) {
 							System.out.println("Разгадано " + gameLoop.solvedWords.size() + " слова");
 							System.out.println(gameLoop.solvedWords.toString());
+							gameLoop.solvedWords.clear();
 							gameLoop.startGame();
 						} else if (gameLoop.solvedWords.isEmpty()) {
 							System.out.println("Разгадано " + 0 + " слов");
+							gameLoop.solvedWords.clear();
 							gameLoop.startGame();
 						} else {
 							System.out.println("Разгадано " + gameLoop.solvedWords.size() + " слов");
 							System.out.println(gameLoop.solvedWords.toString());
+							gameLoop.solvedWords.clear();
 							gameLoop.startGame();
 						}
 					}
@@ -119,8 +124,8 @@ public class ConsoleOutput {
 						gameLoop.startGame();
 					}
 				} else {
-					System.out.println("Ввод завершен.");
-					break;
+					System.out.println("Ввод завершен");
+					gameLoop.startGame();
 				}
 			} while (numberOfMistakes < 6);
 		} catch (IOException e) {

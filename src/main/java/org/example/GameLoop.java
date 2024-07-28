@@ -29,18 +29,6 @@ public class GameLoop {
 					}
 					case "нет" -> {
 						System.out.println("Игра окончена");
-						if (solvedWords.size() == 1) {
-							System.out.println("Вы разгадали " + solvedWords.size() + " слово");
-							System.out.println(solvedWords.toString());
-						} else if ((solvedWords.size() > 1) && (solvedWords.size() < 5)) {
-							System.out.println("Вы разгадали " + solvedWords.size() + " слова");
-							System.out.println(solvedWords.toString());
-						} else if (solvedWords.isEmpty()) {
-							System.out.println("Вы разгадали " + 0 + " слов");
-						} else {
-							System.out.println("Вы разгадали " + solvedWords.size() + " слов");
-							System.out.println(solvedWords.toString());
-						}
 						validInput = true;
 						System.exit(0);
 					}
